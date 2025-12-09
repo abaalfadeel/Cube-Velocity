@@ -6,20 +6,37 @@
 <title>Cube Hyper Dash</title>
 <link rel="stylesheet" href="styles/style.css">
 </head>
-<body class="menu-body">
-  <div class="menu-panel">
-    <img class="game-icon" alt="game icon" src="data:image/svg+xml;utf8,
-    <svg xmlns='http://www.w3.org/2000/svg' width='150' height='150'>
-      <rect width='100%' height='100%' rx='24' fill='%230a0a0a'/>
-      <rect x='35' y='35' width='80' height='80' fill='%2300eaff' rx='6'/>
-    </svg>">
+<body class="game-body">
+
+<!-- شاشة البداية -->
+<div id="startScreen">
     <h1>Cube Hyper Dash</h1>
-    <div class="menu-buttons">
-      <button class="btn big" onclick="location.href='game.html'">ابدأ</button>
-      <button class="btn" onclick="location.href='shop.html'">المتجر</button>
-      <button class="btn" onclick="alert('للتواصل: yourname@example.com')">حول</button>
-    </div>
-    <p class="small">تم التشغيل على الجوال — تحكم بالسحب والنقر.</p>
-  </div>
+    <button id="startBtn">ابدأ اللعب</button>
+</div>
+
+<canvas id="gameCanvas"></canvas>
+
+<!-- HUD -->
+<div id="hud">
+    <div id="score">مسافة: 0</div>
+    <div id="coins">نجوم: 0</div>
+    <div id="hyperbar"><div id="hyperfill"></div></div>
+</div>
+
+<!-- الأصوات -->
+<audio id="sfxJump" src="https://cdn.pixabay.com/download/audio/2022/03/14/audio_c611e5ba1a.mp3?filename=jump-80207.mp3"></audio>
+<audio id="sfxStar" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_13159c3ea5.mp3?filename=coin-collect-83207.mp3"></audio>
+<audio id="sfxHit"  src="https://cdn.pixabay.com/download/audio/2021/09/07/audio_ab166a01d7.mp3?filename=hit-3-43879.mp3"></audio>
+<audio id="bgMusic" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_6cf4034a71.mp3?filename=arcade-music-loop-83203.mp3" loop></audio>
+
+<!-- سكربتات -->
+<script src="scripts/swipe.js"></script>
+<script src="scripts/ui.js"></script>
+<script src="scripts/player.js"></script>
+<script src="scripts/generator.js"></script>
+<script src="scripts/collisions.js"></script>
+<script src="scripts/ads.js"></script>
+<script src="scripts/game.js"></script>
+
 </body>
 </html>
