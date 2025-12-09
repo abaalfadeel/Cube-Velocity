@@ -1,45 +1,58 @@
-// player.js
 const Player = (function(){
-  const lanes = [-1, 0, 1]; // relative lane positions
-  let laneIndex = 1; // center
-  let y = 0; // vertical offset for jump
-  let vy = 0;
-  const gravity = 0.9;
-  const jumpSpeed = -14;
-  let isGrounded = true;
-  let hyper = {enabled:false, timeLeft:0};
+    let lane = 0; // -1,0,1
+    let vy = 0;
+    let y = 0;
+    let jumping = false;
+    let hyper = false;
+    let hyperTime = 0;
 
-  function init(){ laneIndex = 1; y=0; vy=0; isGrounded=true; hyper.enabled=false; hyper.timeLeft=0; }
-
-  function moveLeft(){ if(laneIndex>0) laneIndex--; }
-  function moveRight(){ if(laneIndex<2) laneIndex++; }
-  function jump(){ if(isGrounded){ vy = jumpSpeed; isGrounded=false; SFX.play('jump'); } }
-
-  function longJump(){ // stronger jump
-    if(isGrounded){ vy = jumpSpeed*1.35; isGrounded=false; SFX.play('jump'); }
-  }
-
-  function update(){
-    if(!isGrounded){
-      vy += gravity;
-      y += vy;
-      if(y >= 0){ y = 0; vy = 0; isGrounded = true; }
+    function init(){
+        lane = 0;
+        vy = 0;
+        y = 0;
+        jumping = false;
+        hyper = false;
+        hyperTime = 0;
     }
-    if(hyper.enabled){
-      hyper.timeLeft -= Game.dt;
-      if(hyper.timeLeft <= 0){ hyper.enabled = false; UI.setHyper(0); }
+
+    function update(){
+        if(jumping){
+            vy += 0.9;
+            y += vy;
+            if(y > 0){
+                y = 0;
+                jumping = false;
+                vy = 0;
+            }
+        }
+
+        if(hyper){
+            hyperTime -= Game.dt * 0.7;
+            if(hyperTime <= 0){
+                hyper = false;
+            }
+        }
     }
-  }
 
-  function enableHyper(sec=10){
-    hyper.enabled = true;
-    hyper.timeLeft = sec;
-    UI.setHyper(100);
-    setTimeout(()=>{},0);
-  }
+    function jump(){
+        if(!jumping){
+            jumping = true;
+            vy = -15;
+            SFX.play("jump");
+        }
+    }
 
-  function getState(){ return { lane: lanes[laneIndex], y: y, hyper: hyper.enabled }; }
-  function getLaneIndex(){ return laneIndex; }
+    return {
+        init,
+        update,
+        jump,
+        moveLeft(){ if(lane>-1) lane--; },
+        moveRight(){ if(lane<1) lane++; },
+        enableHyper(t){ hyper=true; hyperTime=t; },
+        longJump(){ jump(); },
 
-  return { init, moveLeft, moveRight, jump, longJump, update, getState, getLaneIndex, enableHyper };
+        getState(){
+            return { lane, y, hyper };
+        }
+    };
 })();
