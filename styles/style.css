@@ -1,1 +1,32 @@
+:root{
+  --bg:#0b0b0f;
+  --panel:#0f1720;
+  --accent:#00eaff;
+  --muted:#888;
+  --white:#ffffff;
+  --btn-bg:#1f2937;
+}
+*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+body{margin:0;background:var(--bg);color:var(--white);-webkit-tap-highlight-color:transparent}
+.menu-body, .splash-body {height:100vh; display:flex; align-items:center; justify-content:center}
+.menu-panel{background:linear-gradient(180deg,#0e1115,#0b0b0f); padding:18px; border-radius:12px; width:92%; max-width:420px; text-align:center}
+.game-icon{width:96px; height:96px; margin-bottom:8px}
+h1{margin:6px 0 14px; font-size:24px}
+.btn{background:var(--btn-bg); color:var(--white); border:0; padding:10px 14px; margin:6px; border-radius:8px; font-size:16px}
+.btn.big{padding:12px 18px; font-size:18px}
+.small{color:var(--muted); font-size:12px}
 
+.game-body{height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+canvas#gameCanvas{width:100%; height:100%; display:block; background:linear-gradient(180deg,#02030a,#081021)}
+
+#hud{position:absolute;left:10px;right:10px;top:10px;display:flex;justify-content:space-between;align-items:center;gap:8px;pointer-events:none}
+#score,#coins{background:rgba(0,0,0,0.35);padding:8px 10px;border-radius:8px;font-weight:600}
+#hyperbar{flex:1;margin-left:12px;height:12px;background:rgba(255,255,255,0.06);border-radius:12px;overflow:hidden}
+#hyperfill{width:0%;height:100%;background:linear-gradient(90deg,#ffd700,#ff6a00)}
+
+.splash-body #splash-logo{width:220px; animation:fade 2.2s ease-in-out}
+@keyframes fade {0%{opacity:0}30%{opacity:1}70%{opacity:1}100%{opacity:0}}
+
+.shop-grid{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:10px 0}
+.shop-item{background:#0b1116;padding:10px;border-radius:10px;width:130px;text-align:center}
+.skin-preview{width:80px;height:80px;margin:0 auto 8px;border-radius:8px}
