@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Cube Hyper Dash - Play</title>
+<link rel="stylesheet" href="styles/style.css">
+</head>
+<body class="game-body">
+  <canvas id="gameCanvas"></canvas>
+
+  <!-- واجهة بسيطة -->
+  <div id="hud">
+    <div id="score">مسافة: 0</div>
+    <div id="coins">نجوم: 0</div>
+    <div id="hyperbar"><div id="hyperfill"></div></div>
+  </div>
+
+  <!-- أصوات (روابط خارجية) -->
+  <audio id="sfxJump" src="https://freesound.org/data/previews/331/331912_3248244-lq.mp3"></audio>
+  <audio id="sfxStar" src="https://freesound.org/data/previews/341/341695_6248479-lq.mp3"></audio>
+  <audio id="sfxHit" src="https://freesound.org/data/previews/403/403014_5121236-lq.mp3"></audio>
+  <audio id="bgMusic" src="https://freesound.org/data/previews/566/566843_5674468-lq.mp3" loop></audio>
+
+  <!-- سكربتات -->
+  <script src="scripts/swipe.js"></script>
+  <script src="scripts/player.js"></script>
+  <script src="scripts/generator.js"></script>
+  <script src="scripts/collisions.js"></script>
+  <script src="scripts/ui.js"></script>
+  <script src="scripts/ads.js"></script>
+  <script src="scripts/game.js"></script>
+</body>
+</html>
