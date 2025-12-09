@@ -1,39 +1,34 @@
-// generator.js
 const Generator = (function(){
-  const objects = []; // each: {type:'obstacle'|'star'|'energy', lane:0/1/2, z:distance, sizeBase}
-  const spawnInterval = 700; // ms (start)
-  let lastSpawn = 0;
-  let baseSpawn = spawnInterval;
-  let speedFactor = 1;
+    let objs = [];
+    let timer = 0;
 
-  function reset(){ objects.length = 0; lastSpawn = 0; baseSpawn = spawnInterval; speedFactor = 1; }
-
-  function spawnRandom(){
-    const r = Math.random();
-    const lane = Math.floor(Math.random()*3);
-    if(r < 0.12) objects.push({type:'energy', lane, z:1000, sizeBase:1});
-    else if(r < 0.45) objects.push({type:'star', lane, z:1000, sizeBase:1});
-    else objects.push({type:'obstacle', lane, z:1000, sizeBase:1});
-  }
-
-  function update(dt, speed){
-    speedFactor = speed/6;
-    lastSpawn += dt;
-    if(lastSpawn > Math.max(280, baseSpawn - speed*20)){
-      lastSpawn = 0; spawnRandom();
+    function reset(){
+        objs = [];
+        timer = 0;
     }
-    // move objects closer
-    for(let i=objects.length-1;i>=0;i--){
-      const o = objects[i];
-      o.z -= dt * (0.6 * speed); // higher speed moves objects faster
-      if(o.z < -50) objects.splice(i,1); // passed
+
+    function update(dt, speed){
+        timer += dt;
+        if(timer > 600){
+            timer = 0;
+
+            const lane = Math.floor(Math.random()*3); // 0..2
+            const type = Math.random() < 0.7 ? "obstacle" : "star";
+
+            objs.push({ lane, z:0, type });
+        }
+
+        for(let o of objs){
+            o.z += speed * Game.dt * 0.8;
+        }
+
+        objs = objs.filter(o => o.z < 1000);
     }
-  }
 
-  function getObjects(){ return objects; }
-
-  // simple difficulty grow
-  function increaseDifficulty(){ baseSpawn = Math.max(300, baseSpawn - 10); }
-
-  return { reset, update, getObjects, increaseDifficulty, spawnRandom };
+    return {
+        reset,
+        update,
+        getObjects(){ return objs; },
+        increaseDifficulty(){ }
+    };
 })();
