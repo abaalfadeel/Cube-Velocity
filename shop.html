@@ -1,1 +1,43 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>المتجر</title>
+<link rel="stylesheet" href="styles/style.css">
+</head>
+<body class="menu-body">
+  <div class="menu-panel">
+    <h1>المتجر</h1>
+    <div class="shop-grid">
+      <div class="shop-item">
+        <div class="skin-preview" style="background:#00eaff"></div>
+        <div>مكعب نيون</div>
+        <div><button class="btn buy" data-cost="20">اشترِ 20</button></div>
+      </div>
+      <div class="shop-item">
+        <div class="skin-preview" style="background:#ff7b7b"></div>
+        <div>مكعب ناري</div>
+        <div><button class="btn buy" data-cost="50">اشترِ 50</button></div>
+      </div>
+    </div>
+    <div class="menu-buttons">
+      <button class="btn" onclick="location.href='index.html'">العودة</button>
+    </div>
+    <p>نجوم متاحة: <span id="shopCoins">0</span></p>
+  </div>
 
+<script>
+function refreshCoins(){ document.getElementById('shopCoins').innerText = localStorage.getItem('coins')||0; }
+refreshCoins();
+document.querySelectorAll('.btn.buy').forEach(b=>{
+  b.onclick = ()=> {
+    let cost = parseInt(b.getAttribute('data-cost'));
+    let c = parseInt(localStorage.getItem('coins')||0);
+    if(c >= cost) { c -= cost; localStorage.setItem('coins', c); alert('تم الشراء'); refreshCoins(); }
+    else alert('لا توجد نجوم كافية');
+  };
+});
+</script>
+</body>
+</html>
